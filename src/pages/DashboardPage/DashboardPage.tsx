@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFacebookUserData, getPageInsights } from '../../api/facebookApi';
 import withAuth from '../../auth/withAuth';
 import CustomButton from '../../components/CustomButton';
+import { useNavigate } from 'react-router-dom';
 
 interface UserData {
     id: string;
@@ -24,6 +25,9 @@ const DashboardPage: React.FC = () => {
     const [pageData, setPageData] = useState<{ data: Page[] } | null>(null);
     const [insights, setInsights] = useState<any[]>([]);
     const [selectedPage, setSelectedPage] = useState<string>('');
+    const [insightStatus, setInsightStatus] = useState<boolean>(false);
+
+    const navigate = useNavigate()
 
 
   const getUserData = async (accessToken: string) => {
@@ -32,6 +36,7 @@ const DashboardPage: React.FC = () => {
       setUserData({ ...res.data.profile, accessToken });
       setPageData(res.data.pages);
     } catch (error) {
+      navigate('/login')
       console.error('Error fetching data', error);
     }
   };
@@ -49,7 +54,9 @@ const DashboardPage: React.FC = () => {
         userId: localStorage.getItem('userId') || ''
       });
       setInsights(res.data.data);
+      setInsightStatus(true)
     } catch (error) {
+      setInsightStatus(false)
       console.error('Error fetching insights', error);
     }
   };
@@ -110,7 +117,7 @@ const DashboardPage: React.FC = () => {
       )}
       </div>
 
-      {insights && (
+      {insights && insightStatus && (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-2xl font-semibold mb-2 text-gray-800">Total Followers / Fans</h3>
