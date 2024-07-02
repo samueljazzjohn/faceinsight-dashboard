@@ -1,8 +1,7 @@
 import { RouteObject } from 'react-router-dom';
-
 import Layout from './layout/Layout';
 import LoginPage from './pages/LoginPage/LoginPage';
-// import withAuth from './auth/withAuth';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 const routes: RouteObject[] = [
   {
@@ -13,10 +12,10 @@ const routes: RouteObject[] = [
         path: 'login',
         element: <LoginPage />,
       },
-      // {
-      //   path: 'dashboard',
-      //   element: <ProtectedRoute component={DashboardPage} />,
-      // },
+      {
+        path: 'dashboard',
+        element: <DashboardPage />,
+      },
     ],
   },
 ];
