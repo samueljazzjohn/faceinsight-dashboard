@@ -26,6 +26,8 @@ const DashboardPage: React.FC = () => {
     const [insights, setInsights] = useState<any[]>([]);
     const [selectedPage, setSelectedPage] = useState<string>('');
     const [insightStatus, setInsightStatus] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
 
     const navigate = useNavigate()
 
@@ -35,6 +37,7 @@ const DashboardPage: React.FC = () => {
       const res = await getFacebookUserData({accessToken})
       setUserData({ ...res.data.profile, accessToken });
       setPageData(res.data.pages);
+      setIsLoading(false);
     } catch (error) {
       navigate('/login')
       console.error('Error fetching data', error);
@@ -65,6 +68,10 @@ const DashboardPage: React.FC = () => {
     const metric = insights.find((insight) => insight.name === metricName);
     return metric ? metric.values[0].value : null;
   };
+
+  if (isLoading) {
+    return <div className="text-center mt-8">Loading...</div>;
+  }
 
 
   return (
