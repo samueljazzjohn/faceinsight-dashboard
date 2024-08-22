@@ -183,7 +183,7 @@ const DashboardPage: React.FC = () => {
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-2xl font-semibold mb-2 text-gray-800">Total Reactions</h3>
-            <p className="text-lg text-gray-700">{getInsightValue('post_reactions_total')}</p>
+            <p className="text-lg text-gray-700">{getInsightValue('page_actions_post_reactions_total')}</p>
           </div>
         </div>
       )}
